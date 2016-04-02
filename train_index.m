@@ -23,7 +23,7 @@ function  train_index(conf)
 		algorithm = algorithms{algorithmIndex};
 
 		% 提取cover feature
-		load([FEATURES_PATH, 'cover/', algorithm, '_cover_feature.mat' ], 'coverF');
+		load(fullfile(FEATURES_PATH, 'cover', [algorithm, '_cover_feature.mat' ]), 'coverF');
 
 		for imageTypesIndex = 1:imageTypes_length
 			imageType = imageTypes{imageTypesIndex};
@@ -31,13 +31,13 @@ function  train_index(conf)
 			tic;
 			bpp = num2str(bpps(bppIndex));
 			% 提取stego feature
-			load([FEATURES_PATH, 'stego/', type, '/', algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ], 'stegoF');
+			load(fullfile(FEATURES_PATH, 'stego', type, [algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ]), 'stegoF');
 
 			% svm训练
 			[model, score, medv, disv] = train(coverF, stegoF);
 
 			% 保存训练集model供后期使用
-			save([MODEL_PATH, type, '/', algorithm,  '_stego_',  imageType, '_' , num2str(bpp), '_model.mat'], 'model', 'score', 'medv', 'disv');
+			save(fullfile(MODEL_PATH, type, [algorithm,  '_stego_',  imageType, '_' , num2str(bpp), '_model.mat']), 'model', 'score', 'medv', 'disv');
 
 			T = toc;
 			TotalT = [TotalT; T];

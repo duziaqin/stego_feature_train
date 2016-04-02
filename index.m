@@ -33,16 +33,16 @@ function  index(conf)
 			tic;
 			bpp = num2str(bpps(bppIndex));
 			% 提取stego feature
-			[stegoF] = feature(algorithm, [IMAGES_PATH, 'stego/'], imageSeriers, imageType, bpp,  IMAGE_PREFIX);
+			[stegoF] = feature(algorithm, fullfile(IMAGES_PATH, 'stego'), imageSeriers, imageType, bpp,  IMAGE_PREFIX);
 
 			% 为什么要保存呢，为什么呢，我也不造瓦
-			save([FEATURES_PATH, 'stego/', type, '/', algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ], 'stegoF');
+			save(fullfile(FEATURES_PATH, 'stego', type, [algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ]), 'stegoF');
 
 			% svm训练
 			[model, score, medv, disv] = train(coverF, stegoF);
 
 			% 保存训练集model供后期使用
-			save([MODEL_PATH, type, '/', algorithm,  '_stego_',  imageType, '_' , num2str(bpp), '_model.mat'], 'model', 'score', 'medv', 'disv');
+			save(fullfile(MODEL_PATH, type, [algorithm,  '_stego_',  imageType, '_' , num2str(bpp), '_model.mat']), 'model', 'score', 'medv', 'disv');
 
 			T = toc;
 			TotalT = [TotalT; T];

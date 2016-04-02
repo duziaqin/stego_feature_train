@@ -28,7 +28,7 @@ function  feature_index(conf, imageSeriersFromCommad)
 		algorithm = algorithms{algorithmIndex};
 
 		%保存路径
-		saveCoverFPath = [FEATURES_PATH, 'cover/', algorithm, '_cover_feature.mat' ];
+		saveCoverFPath = fullfile(FEATURES_PATH, 'cover', [algorithm, '_cover_feature.mat' ]);
 
 		% 如果不是从1开始，就load写好的矩阵回来
 		coverF = [];
@@ -47,7 +47,7 @@ function  feature_index(conf, imageSeriersFromCommad)
 			tic;
 			bpp = num2str(bpps(bppIndex));
 			%保存路径
-			saveStegoFPath = [FEATURES_PATH, 'stego/', type, '/', algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ];
+			saveStegoFPath = fullfile(FEATURES_PATH, 'stego', type, [algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ]);
 			stegoF = [];
 
 			% 如果不是从1开始，就load写好的矩阵回来
@@ -56,7 +56,7 @@ function  feature_index(conf, imageSeriersFromCommad)
 			end;
 
 			% 提取stego feature
-			[stegoPeriodF] = feature(algorithm, [IMAGES_PATH, 'stego/'], imageSeriers, imageType, bpp,  IMAGE_PREFIX);
+			[stegoPeriodF] = feature(algorithm, fullfile(IMAGES_PATH, 'stego'), imageSeriers, imageType, bpp,  IMAGE_PREFIX);
 			stegoF = [stegoF; stegoPeriodF];
 			save(saveStegoFPath, 'stegoF');
 

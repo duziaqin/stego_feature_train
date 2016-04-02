@@ -1,21 +1,21 @@
 function [BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, type, imageTypes, imageSeriers, bpps, algorithms] = JPEG()
 	% 基本路径
-	BASE_PATH='/home/mona/Documents/my-detect/';
+	BASE_PATH = '/home/mona/Documents/stego_feature_train/';
 
 	% 图像所在路径
-	IMAGES_PATH = [BASE_PATH , 'jpeg/'];
+	IMAGES_PATH = fullfile(BASE_PATH , 'jpeg');
 
 	% 隐写分析针对
 	type = 'JPEG';
 
 	% 隐写分析算法所在路径
-	ALGORITHMS_PATH = [BASE_PATH, 'algorithms/JPEG/'];
+	ALGORITHMS_PATH = fullfile(BASE_PATH, 'algorithms', 'JPEG');
 
 	% 要生成的特征矩阵文件存储位置
-	FEATURES_PATH = [BASE_PATH, 'features/'];
+	FEATURES_PATH = fullfile(BASE_PATH, 'features');
 
 	% 要生成的model文件存储位置
-	MODEL_PATH = [BASE_PATH, 'models/'];
+	MODEL_PATH = fullfile(BASE_PATH, 'models');
 
 	% 图片后缀
 	IMAGE_PREFIX = 'jpeg';
