@@ -27,3 +27,53 @@ matlab基础运行：
 
 ## 各种默认配置规范
 图片命名要按照一定规范，还有文件夹命名。
+目录如下：
+
+	.
+	├── algorithms
+	│   ├── JPEG
+	│   │   └── Ah_T3
+	│   └── spatial
+	│       ├── SPAM
+	│       └── WAM
+	├── conf
+	│   ├── JPEG.m
+	│   └── spatial.m
+	├── convert_pgm_2_jpeg.m
+	├── feature_index.m
+	├── features
+	│   ├── cover
+	│   │   ├── Ah_T3_cover_feature.mat
+	│   │   └── WAM_cover_feature.mat
+	│   └── stego
+	│       ├── JPEG
+	│       └── spatial
+	├── images
+	│   ├── cover
+	│   │   └──00001.pgm
+	│   │ 
+	│   └── stego
+	│       ├── HUGO
+	│       │ 	├── 0.2
+	│       │ 	└── 0.3
+	│       ├── S-UNIWARD
+	│       └── WOW
+	├── index.m
+	├── jpeg
+	│   ├── cover
+	│   │   └── 00001.jpeg
+	│   └── stego
+	│       ├── HUGO
+	│       ├── S-UNIWARD
+	│       └── WOW
+	├── lib
+	│   ├── feature.m
+	│   ├── generatePicName.m
+	│   └── train.m
+	├── models
+	│   ├── JPEG
+	│   └── spatial
+	│       └── WAM_stego_WOW_0.5_model.mat
+	├── README.md
+	├── test.m
+	└── train_index.m
