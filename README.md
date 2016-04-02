@@ -43,25 +43,25 @@ matlab基础运行：
 	├── feature_index.m
 	├── features
 	│   ├── cover
-	│   │   ├── Ah_T3_cover_feature.mat
+	│   │   ├── Ah_T3_cover_feature.mat //生成的特征矩阵文件
 	│   │   └── WAM_cover_feature.mat
 	│   └── stego
 	│       ├── JPEG
 	│       └── spatial
 	├── images
 	│   ├── cover
-	│   │   └──00001.pgm
+	│   │   └──00001.pgm //图片命名规则，如第500张：00500
 	│   │ 
 	│   └── stego
-	│       ├── HUGO
-	│       │ 	├── 0.2
+	│       ├── HUGO // 隐写算法
+	│       │ 	├── 0.2 //嵌入率
 	│       │ 	└── 0.3
 	│       ├── S-UNIWARD
 	│       └── WOW
 	├── index.m
 	├── jpeg
 	│   ├── cover
-	│   │   └── 00001.jpeg
+	│   │   └── 00001.jpeg 
 	│   └── stego
 	│       ├── HUGO
 	│       ├── S-UNIWARD
@@ -73,7 +73,7 @@ matlab基础运行：
 	├── models
 	│   ├── JPEG
 	│   └── spatial
-	│       └── WAM_stego_WOW_0.5_model.mat
+	│       └── WAM_stego_WOW_0.5_model.mat //生成的model文件
 	├── README.md
 	├── test.m
 	└── train_index.m
