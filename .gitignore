@@ -12,14 +12,19 @@ models/spatial/*
 
 # 留作示范
 !features/cover/Ah_T3_cover_feature.mat
+
 !features/stego/JPEG/Ah_T3_stego_HUGO_0.2_feature.mat
+
 !features/stego/spatial/WAM_stego_WOW_0.5_feature
 
 !images/cover/00001.pgm
+
 !images/stego/HUGO/0.2/00001.pgm
 
 !jpeg/cover/00001.jpeg
+
 !jpeg/stego/HUGO/0.2/00001.jpeg
 
 !models/JPEG/Ah_T3_stego_HUGO_0.2_model
+
 !models/spatial/WAM_stego_WOW_0.5_model
