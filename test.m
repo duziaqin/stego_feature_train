@@ -1,23 +1,59 @@
 %%% setup
-mfilepath=fileparts(which(mfilename));
-addpath(fullfile(mfilepath, './lib'));
-addpath(fullfile(mfilepath, './conf'));
+function  test()
+	disp('----------------- start -------------------------');
+	conf = 'spatial';
 
-[~, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, type, imageTypes, imageLength, bpps, algorithms]  = spatial();
-addpath(genpath(ALGORITHMS_PATH));
+	% 计数
+	TotalT = [];
 
-imageType = imageTypes{2};
-algorithm = algorithms{1};
- bpp = num2str(bpps(4));
- pic = '00080.pgm';
+	mfilepath=fileparts(which(mfilename));
+	addpath(fullfile(mfilepath, './lib'));
+	addpath(fullfile(mfilepath, './conf'));
 
-stegoFunc = str2func(algorithm);
-stegoF = stegoFunc([IMAGES_PATH, 'stego/', imageTypes{1}, '/', bpp, '/', pic]);
-coverF = stegoFunc([IMAGES_PATH, 'cover/', pic]);
+	confFunc = str2func(conf);
 
-F = [stegoF; coverF];
-load([MODEL_PATH, 'spatial/', algorithm,  '_stego_',  imageType, '_' , bpp, '_model.mat'], 'model');
-[label, ~, ~] = predict(model, F);
+	[type, imageTypes, imageSeriers, bpps, algorithms, ~, IMAGES_PATH, ...
+	ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX,  ~]  = confFunc();
 
-disp(strcat('bpp: ', bpp, ' algorithm: ', algorithm, ' pic: ', pic));
-disp(strcat('stego图片(1): ', num2str(label(1)), ' cover图片(-1): ', num2str(label(2))));
+	addpath(genpath(ALGORITHMS_PATH));
+
+	[algorithms_length, ~] = size(algorithms) ;
+	[imageTypes_length, ~] = size(imageTypes);
+	bpps_length = length(bpps);
+
+	% --遍历
+	for algorithmIndex = 1:algorithms_length
+		algorithm = algorithms{algorithmIndex};
+
+		% 提取cover feature
+		coverF = feature(algorithm, IMAGES_PATH, imageSeriers, 'cover', 0,  IMAGE_PREFIX);
+		% 为什么要保存呢，为什么呢，我也不造瓦
+		% save([FEATURES_PATH, 'cover/', algorithm, '_cover_feature.mat' ], 'coverF');
+
+		for imageTypesIndex = 1:imageTypes_length
+			imageType = imageTypes{imageTypesIndex};
+			for bppIndex = 1:bpps_length
+			tic;
+			bpp = num2str(bpps(bppIndex));
+			% 提取stego feature
+			[stegoF] = feature(algorithm, fullfile(IMAGES_PATH, 'stego'), imageSeriers, imageType, bpp,  IMAGE_PREFIX);
+
+			% 为什么要保存呢，为什么呢，我也不造瓦
+			save(fullfile(FEATURES_PATH, 'stego', type, [algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ]), 'stegoF');
+
+			% svm训练
+			[model, score, medv, disv] = train(coverF, stegoF);
+
+			% 保存训练集model供后期使用
+			save(fullfile(MODEL_PATH, type, [algorithm,  '_stego_',  imageType, '_' , num2str(bpp), '_model.mat']), 'model', 'score', 'medv', 'disv');
+
+			T = toc;
+			TotalT = [TotalT; T];
+			fprintf('algorithm %s, imageType %s, bpp %s: %.4f seconds\n', algorithm, imageType, num2str(bpp),T);
+		end
+	end
+end
+
+	disp(strcat('----------------- done! -------------------------'));
+	disp([num2str(sum(TotalT(:))), ' seconds in total~']);
+end

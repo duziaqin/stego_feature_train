@@ -12,7 +12,7 @@ function featureF = feature(algorithm, PATH, imageSeriers, imageType, bpp,  pref
 			else
 				imagePath = fullfile(PATH, imageType,  [generatePicName(single), '.', prefix]);
 			end
-			disp(imagePath);
+
 			featureVector = transform2Vector(algorithmFunc(imagePath));
 			featureF = [featureF; featureVector];
 			disp([imagePath, ' done~']);

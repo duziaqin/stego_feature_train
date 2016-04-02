@@ -1,4 +1,4 @@
-function [BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, type, imageTypes, imageSeriers, bpps, algorithms] = spatial()
+function [type, imageTypes, imageSeriers, bpps, algorithms, BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, STEGO_PATH] = spatial()
 	% 基本路径
 		BASE_PATH = '/home/mona/Documents/stego_feature_train/';
 
@@ -15,7 +15,10 @@ function [BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IM
 	FEATURES_PATH = fullfile(BASE_PATH, 'features');
 
 	% 要生成的model文件存储位置
-	MODEL_PATH = fullfile(BASE_PATH, 'models/');
+	MODEL_PATH = fullfile(BASE_PATH, 'models');
+
+	% 隐写算法文件存储位置
+	STEGO_PATH = fullfile(BASE_PATH, 'stego');
 
 	% 图片后缀
 	IMAGE_PREFIX = 'pgm';

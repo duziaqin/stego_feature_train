@@ -1,18 +1,23 @@
 % 单独养成脚本
-function  train_index(conf)
+function  feature_alone(conf, params)
 	disp('----------------- 养成开始 -------------------------');
 	% 计数
 	TotalT = [];
 
 	mfilepath=fileparts(which(mfilename));
-	addpath(fullfile(mfilepath, './lib'));
-	addpath(fullfile(mfilepath, './conf'));
+	addpath(fullfile(mfilepath, '../lib'));
+	addpath(fullfile(mfilepath, '../conf'));
 
 	confFunc = str2func(conf);
 
-	[~, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, type, imageTypes, imageSeriers, bpps, algorithms]  = confFunc();
+	[ type, imageTypes, imageSeriers, bpps, algorithms, ~, IMAGES_PATH, ALGORITHMS_PATH, ...
+		FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, ~]  = confFunc();
 
-	addpath(genpath(ALGORITHMS_PATH));
+	% 用于外部调用，比如说其他程序调用
+	if ~isempty(params)
+		algorithms = params(1);
+		imageTypes = params(2);
+	end
 
 	[algorithms_length, ~] = size(algorithms) ;
 	[imageTypes_length, ~] = size(imageTypes);

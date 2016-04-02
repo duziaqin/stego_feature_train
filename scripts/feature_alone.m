@@ -1,20 +1,24 @@
 % 断点续提 特征矩阵脚本
-function  feature_index(conf, imageSeriersFromCommad)
+function  feature_alone(conf, params)
 	disp('-----------------提取开始-------------------------');
 	% 计数
 	TotalT = [];
 
 	mfilepath=fileparts(which(mfilename));
-	addpath(fullfile(mfilepath, './lib'));
-	addpath(fullfile(mfilepath, './conf'));
+	addpath(fullfile(mfilepath, '../lib'));
+	addpath(fullfile(mfilepath, '../conf'));
 
 	confFunc = str2func(conf);
 
-	[~, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, type, imageTypes, imageSeriers, bpps, algorithms]  = confFunc();
+	[type, imageTypes, imageSeriers, bpps, algorithms, ~, IMAGES_PATH, ...
+	ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, ~]  = confFunc();
 
 	% 优先考虑命令行启动
-	if isempty(imageSeriersFromCommad) < 1
-		imageSeriers = imageSeriersFromCommad;
+	% 用于外部调用，比如说其他程序调用
+	if ~isempty(params)
+		algorithms = params(1);
+		imageTypes = params(2);
+		imageSeriers = params(3);
 	end
 
 	addpath(genpath(ALGORITHMS_PATH));
