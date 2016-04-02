@@ -25,6 +25,6 @@ models/spatial/*
 
 !jpeg/stego/HUGO/0.2/00001.jpeg
 
-!models/JPEG/Ah_T3_stego_HUGO_0.2_model
+!models/JPEG/Ah_T3_stego_HUGO_0.2_model.mat
 
-!models/spatial/WAM_stego_WOW_0.5_model
+!models/spatial/WAM_stego_WOW_0.5_model.mat
