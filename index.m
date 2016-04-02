@@ -1,4 +1,3 @@
-
 function  index(conf)
 	disp('----------------- start -------------------------');
 	% 计数
@@ -39,7 +38,7 @@ function  index(conf)
 			save(fullfile(FEATURES_PATH, 'stego', type, [algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ]), 'stegoF');
 
 			% svm训练
-			[model, score, medv, disv] = train(coverF, stegoF);
+			[model, AC, medv, disv] = train(coverF, stegoF);
 
 			% 保存训练集model供后期使用
 			save(fullfile(MODEL_PATH, type, [algorithm,  '_stego_',  imageType, '_' , num2str(bpp), '_model.mat']), 'model', 'score', 'medv', 'disv');

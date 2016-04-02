@@ -30,7 +30,7 @@ function [BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IM
 	imageTypes{1} = 'WOW';
 
 	%每一类(一个嵌入率)起始和终止数
-	imageSeriers = [1; 2];
+	imageSeriers = [1; 30];
 
 	% 嵌入率
 	% bpps = [0.2; 0.3; 0.4; 0.5];

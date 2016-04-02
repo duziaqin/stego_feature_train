@@ -33,7 +33,6 @@ for i=1:xb
     SP(i,:)=(SP(i,:)-medv)./disv;
 end
 
-
 %% 生成随机序列
 % load('index.mat');
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
@@ -57,9 +56,10 @@ SP1=SP(indexB(1:stnum),:);
 SP2=SP(indexB(stnum+1:snum),:);
 %% LIBSVM
 
-y1 = double(-ones(atnum,1));
-y2 = double(ones(stnum,1));
+y1 = double(ones(atnum,1));
+y2 = double(-ones(stnum,1));
 TrainLabel=[y1;y2];
+% AU1:隐写; SP1:载体图片
 TrainData=[AU1;SP1];
 model = fitcsvm(TrainData, TrainLabel);
 
@@ -75,10 +75,10 @@ TestData=[AU2;SP2];
 truePredict = 0;
 TP = 0;
 FP = 0;
-isstego_half =  isstego_length / 2;
+isstego_half =  isstego_length * per;
 
 for i = 1:isstego_length
-	if i <= isstego_half
+	if i >= isstego_half
 		if isstego(i) == -1
 			truePredict = truePredict + 1;
 		else
