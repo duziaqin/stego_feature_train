@@ -4,10 +4,11 @@ function  feature_alone(conf, params)
 	% 计数
 	TotalT = [];
 
-	mfilepath=fileparts(which(mfilename));
-	addpath(fullfile(mfilepath, '../lib'));
-	addpath(fullfile(mfilepath, '../conf'));
-
+	if ~isdeployed
+		mfilepath=fileparts(which(mfilename));
+		addpath(fullfile(mfilepath, '../lib'));
+		addpath(fullfile(mfilepath, '../conf'));
+	end
 	confFunc = str2func(conf);
 
 	[ type, imageTypes, imageSeriers, bpps, algorithms, ~, IMAGES_PATH, ALGORITHMS_PATH, ...

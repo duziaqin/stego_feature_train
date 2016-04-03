@@ -1,9 +1,9 @@
-function featureF = feature(algorithm, PATH, imageSeriers, imageType, bpp,  prefix)
+function featureF = feature_extract(algorithm, PATH, imageSeriers, imageType, bpp,  prefix)
 	algorithmFunc = str2func(algorithm);
+
 	startPoint = imageSeriers(1);
 	endPoint = imageSeriers(2);
 
-	disp(num2str(startPoint));
 	% 调用隐写算法，生成隐写图片features
 		featureF = [];
 		for single = startPoint:endPoint

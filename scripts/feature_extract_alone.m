@@ -1,13 +1,13 @@
 % 断点续提 特征矩阵脚本
-function  feature_alone(conf, params)
+function  feature_extract_alone(conf, params)
 	disp('-----------------提取开始-------------------------');
 	% 计数
 	TotalT = [];
-
-	mfilepath=fileparts(which(mfilename));
-	addpath(fullfile(mfilepath, '../lib'));
-	addpath(fullfile(mfilepath, '../conf'));
-
+	if ~isdeployed
+		mfilepath=fileparts(which(mfilename));
+		addpath(fullfile(mfilepath, '../lib'));
+		addpath(fullfile(mfilepath, '../conf'));
+	end
 	confFunc = str2func(conf);
 
 	[type, imageTypes, imageSeriers, bpps, algorithms, ~, IMAGES_PATH, ...
@@ -21,7 +21,9 @@ function  feature_alone(conf, params)
 		imageSeriers = params(3);
 	end
 
-	addpath(genpath(ALGORITHMS_PATH));
+	if ~isdeployed
+		addpath(genpath(ALGORITHMS_PATH));
+	end
 
 	[algorithms_length, ~] = size(algorithms) ;
 	[imageTypes_length, ~] = size(imageTypes);
@@ -41,7 +43,7 @@ function  feature_alone(conf, params)
 		end;
 
 		% 提取cover feature
-		coverPeriodF = feature(algorithm, IMAGES_PATH, imageSeriers, 'cover', 0,  IMAGE_PREFIX);
+		coverPeriodF = feature_extract(algorithm, IMAGES_PATH, imageSeriers, 'cover', 0,  IMAGE_PREFIX);
 		coverF = [coverF; coverPeriodF];
 		save(saveCoverFPath, 'coverF');
 
@@ -60,7 +62,7 @@ function  feature_alone(conf, params)
 			end;
 
 			% 提取stego feature
-			[stegoPeriodF] = feature(algorithm, fullfile(IMAGES_PATH, 'stego'), imageSeriers, imageType, bpp,  IMAGE_PREFIX);
+			[stegoPeriodF] = feature_extract(algorithm, fullfile(IMAGES_PATH, 'stego'), imageSeriers, imageType, bpp,  IMAGE_PREFIX);
 			stegoF = [stegoF; stegoPeriodF];
 			save(saveStegoFPath, 'stegoF');
 

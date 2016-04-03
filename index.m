@@ -3,11 +3,13 @@ function index(conf, params)
 			params = str2num(params);
 		end
 
-		mfilepath=fileparts(which(mfilename));
-		addpath(fullfile(mfilepath, './scripts'));
-
+		if ~isdeployed
+			mfilepath=fileparts(which(mfilename));
+			addpath(fullfile(mfilepath, './scripts'));
+		end
+		
 		tic;
-		feature_alone(conf, params);
+		feature_extract_alone(conf, params);
 		T = toc;
 		disp(['feature extract:', num2str(T)]);
 

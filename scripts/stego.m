@@ -1,14 +1,20 @@
 function stego(algorithm, conf)
 	tic;
-	mfilepath=fileparts(which(mfilename));
-	addpath(fullfile(mfilepath, '../lib'));
-	addpath(fullfile(mfilepath, '../conf'));
+
+	if ~isdeployed
+		mfilepath=fileparts(which(mfilename));
+		addpath(fullfile(mfilepath, '../lib'));
+		addpath(fullfile(mfilepath, '../conf'));
+	end
 
 	confFunc = str2func(conf);
 	[ ~, ~, imageSeriers, bpps, ~, ~, ...
 		IMAGES_PATH, ~, ~, ~,	IMAGE_PREFIX, STEGO_PATH]  = confFunc();
 
-	addpath(genpath(STEGO_PATH));
+	if ~isdeployed
+		addpath(genpath(STEGO_PATH));
+	end
+
 	stegoFunc = str2func(algorithm);
 
 	startPoint = imageSeriers(1);
@@ -16,6 +22,7 @@ function stego(algorithm, conf)
 
 	coverPath = fullfile(IMAGES_PATH, 'cover');
 	savePath = fullfile(IMAGES_PATH, 'stego', algorithm);
+	params.p = -1;
 
 	if ~exist(savePath, 'dir')
 		mkdir(savePath);
@@ -35,7 +42,7 @@ function stego(algorithm, conf)
 			coverFile = imread(fullfile(coverPath, fileName));
 			saveFile = fullfile(saveBppPath, fileName);
 
-			imwrite(stegoFunc(coverFile, single(str2num(bpp))), saveFile);
+			imwrite(stegoFunc(coverFile, single(str2num(bpp)), params), saveFile);
 		end
 	end
 

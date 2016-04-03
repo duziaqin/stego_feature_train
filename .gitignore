@@ -10,6 +10,8 @@ jpeg/stego/*
 models/JPEG/*
 models/spatial/*
 
+dest/*
+
 # 留作示范
 !features/cover/Ah_T3_cover_feature.mat
 
