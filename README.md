@@ -25,6 +25,11 @@ matlab基础运行：
 		* 运行`train_index.m {{conf}}`;
 		* imageSeriers取[start, end]的图像排序，如[1, 500]则是取images下编号为00001至00500
 
+## 打包
+利用`pack.sh`打包，打包目标包括`index.m`、`scripts/stego.m`、`scripts/feature_extract_alone`以及`scripts/train_alone`主要是为了其他程序调用方便
+
+具体运行参数可通过 `pack.sh -h`查看
+
 ## 各种默认配置规范
 图片命名要按照一定规范，还有文件夹命名。
 目录如下：
