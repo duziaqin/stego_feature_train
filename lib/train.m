@@ -17,6 +17,7 @@ if(error_sum ~= 0)
     return;
 end
 
+tic;
 %%特征归一化处理
 maxvau=max(AU);
 minvau=min(AU);
@@ -40,15 +41,15 @@ indexA=randperm(xa);
 indexB=randperm(xb);
 
 %% 训练集的比例
-disp('==========================================================');
+% disp('==========================================================');
 per = 1.0 / 2.0;
 anum = xa;
 snum = xb;
 atnum=round(anum*per);
 stnum=round(snum*per);
-disp(strcat('特征数为：',num2str(yb)));
-disp(strcat('训练样本数(',num2str(100*per),'%)：',num2str(atnum+stnum),'(',num2str(atnum),'+',num2str(stnum),')'));
-disp(strcat('测试样本数(',num2str(100*(1-per)),'%)：',num2str((xa+xb)-(atnum+stnum)),'(',num2str(anum-atnum),'+',num2str(snum-stnum),')'));
+% disp(strcat('特征数为：',num2str(yb)));
+% disp(strcat('训练样本数(',num2str(100*per),'%)：',num2str(atnum+stnum),'(',num2str(atnum),'+',num2str(stnum),')'));
+% disp(strcat('测试样本数(',num2str(100*(1-per)),'%)：',num2str((xa+xb)-(atnum+stnum)),'(',num2str(anum-atnum),'+',num2str(snum-stnum),')'));
 
 AU1=AU(indexA(1:atnum),:);
 AU2=AU(indexA(atnum+1:anum),:);
@@ -63,8 +64,15 @@ TrainLabel=[y1;y2];
 TrainData=[AU1;SP1];
 model = fitcsvm(TrainData, TrainLabel);
 
+T = toc;
+disp(['trainT(', T, ')']);
+
+tic;
 TestData=[AU2;SP2];
 [isstego, score] = predict(model, TestData);
+
+T = toc;
+disp(['classifyT(', T, ')']);
 
 % 简易判断隐写分析效果，不准确哒
 % disp(num2str(sum(isstego(:))));
@@ -95,5 +103,5 @@ for i = 1:isstego_length
 	end
 end
 
-disp(['正确判断', '(', num2str(isstego_length), '):',  num2str(truePredict), ' TP', '(', num2str(isstego_half), '):' , num2str(TP), ' FP:', '(', num2str(isstego_half), '):' ,num2str(FP)]);
+disp(['Train Result:', 'sum(', num2str(isstego_length), '):',  num2str(truePredict), ' TP', '(', num2str(isstego_half), ':' , num2str(TP), ')  FP', '(', num2str(isstego_half), ':' ,num2str(FP), ')']);
 end

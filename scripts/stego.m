@@ -1,4 +1,4 @@
-function stego(algorithm, conf)
+function stego(algorithm, conf, params)
 	tic;
 
 	if ~isdeployed
@@ -10,6 +10,13 @@ function stego(algorithm, conf)
 	confFunc = str2func(conf);
 	[ ~, ~, imageSeriers, bpps, ~, ~, ...
 		IMAGES_PATH, ~, ~, ~,	IMAGE_PREFIX, STEGO_PATH]  = confFunc();
+
+		% 优先考虑命令行启动
+		% 用于外部调用，比如说其他程序调用
+		if and(~isempty(params), ischar(params))
+			params = str2num(params);
+			imageSeriers = params(1);
+		end
 
 	if ~isdeployed
 		addpath(genpath(STEGO_PATH));
@@ -42,10 +49,16 @@ function stego(algorithm, conf)
 			coverFile = imread(fullfile(coverPath, fileName));
 			saveFile = fullfile(saveBppPath, fileName);
 
-			imwrite(stegoFunc(coverFile, single(str2num(bpp)), params), saveFile);
+			try
+				image = stegoFunc(coverFile, single(str2num(bpp)), params)
+			catch ME
+				disp(['Error(stego ',  ME, ')']);
+			end
+
+			imwrite(image, saveFile);
 		end
 	end
 
 	T = toc;
-	disp(['stego time: ', num2str(T)]);
+	disp(['T(', num2str(T), ')']);
 end

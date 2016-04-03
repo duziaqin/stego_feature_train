@@ -15,7 +15,6 @@ function featureF = feature_extract(algorithm, PATH, imageSeriers, imageType, bp
 
 			featureVector = transform2Vector(algorithmFunc(imagePath));
 			featureF = [featureF; featureVector];
-			disp([imagePath, ' done~']);
 		end
 
 	function columnVector = transform2Vector(matrix)

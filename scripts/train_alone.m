@@ -47,11 +47,11 @@ function  feature_alone(conf, params)
 
 			T = toc;
 			TotalT = [TotalT; T];
-			fprintf('algorithm %s, imageType %s, bpp %s: %.4f seconds\n', algorithm, imageType, num2str(bpp),T);
+			fprintf('algorithm(%s), imageType(%s), bpp(%s), T(%.4f) \n', algorithm, imageType, num2str(bpp),T);
 		end
 	end
 end
 
 	disp(strcat('-----------------养成结束! -------------------------'));
-	disp([num2str(sum(TotalT(:))), ' seconds in total~']);
+	disp('T(', [num2str(sum(TotalT(:))), ')']);
 end
