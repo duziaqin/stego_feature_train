@@ -52,7 +52,7 @@ function stego(algorithm, conf, params)
 			try
 				image = stegoFunc(coverFile, single(str2num(bpp)), params)
 			catch ME
-				disp(['Error(stego ',  ME, ')']);
+				disp(['error(stego ',  fileName,  ' ', ME, ');']);
 			end
 
 			imwrite(image, saveFile);
@@ -60,5 +60,5 @@ function stego(algorithm, conf, params)
 	end
 
 	T = toc;
-	disp(['T(', num2str(T), ')']);
+	disp(['time(', num2str(T), ');']);
 end
