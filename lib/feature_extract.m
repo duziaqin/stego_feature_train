@@ -13,7 +13,11 @@ function featureF = feature_extract(algorithm, PATH, imageSeriers, imageType, bp
 				imagePath = fullfile(PATH, imageType,  [generatePicName(single), '.', prefix]);
 			end
 
-			featureVector = transform2Vector(algorithmFunc(imagePath));
+			try
+				featureVector = transform2Vector(algorithmFunc(imagePath));
+			catch ME
+				disp(['errors(feature ', single, ' ', ME, ');errorBpp(', num2str(bpp), ');']);
+			end
 			featureF = [featureF; featureVector];
 		end
 

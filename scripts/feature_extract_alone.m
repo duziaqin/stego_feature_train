@@ -1,6 +1,6 @@
 % 断点续提 特征矩阵脚本
 function  feature_extract_alone(conf, params)
-	disp('-----------------提取开始-------------------------');
+	% disp('-----------------提取开始-------------------------');
 	% 计数
 	TotalT = [];
 	if ~isdeployed
@@ -15,10 +15,13 @@ function  feature_extract_alone(conf, params)
 
 	% 优先考虑命令行启动
 	% 用于外部调用，比如说其他程序调用
-	if ~isempty(params)
-		algorithms = params(1);
-		imageTypes = params(2);
-		imageSeriers = params(3);
+	% 约定一级分割符是 .
+	% 二级分割符是  ;
+	if and(~isempty(params), ischar(params))
+		params = strsplit(params, '.');
+		algorithms = strsplit(params(1), ';');
+		imageTypes = strsplit(params(2), ';');
+		imageSeriers = str2num(params(3));
 	end
 
 	if ~isdeployed
@@ -68,11 +71,11 @@ function  feature_extract_alone(conf, params)
 
 			T = toc;
 			TotalT = [TotalT; T];
-			fprintf('algorithm(%s), imageType(%s), bpp(%s), extractT(%.4f) \n', algorithm, imageType, num2str(bpp),T);
+			fprintf('algorithm(%s); imageType(%s); bpp(%s); extractTime(%.4f); \n', algorithm, imageType, num2str(bpp),T);
 		end
 	end
 end
 
-	disp(strcat('----------------- 提取结束!-------------------------'));
-	disp(['startPoint(', startPoint, ') endPoint(',  endPoint, ')', 'extractT(', num2str(sum(TotalT(:))), ')']);
+	% disp(strcat('----------------- 提取结束!-------------------------'));
+	% disp(['startPoint(', startPoint, '); endPoint(',  endPoint, ');', 'extractT(', num2str(sum(TotalT(:))), ');']);
 end

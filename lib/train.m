@@ -13,7 +13,7 @@ sp_inf = isinf(SP);
 error_sum = max(max(au_nan)) + max(max(au_inf)) + max(max(sp_nan)) + ...
     max(max(sp_inf));
 if(error_sum ~= 0)
-    disp('特征有异常');
+    disp('errors(特征有异常);');
     return;
 end
 
@@ -65,14 +65,14 @@ TrainData=[AU1;SP1];
 model = fitcsvm(TrainData, TrainLabel);
 
 T = toc;
-disp(['trainT(', T, ')']);
+disp(['trainTime(', T, ')']);
 
 tic;
 TestData=[AU2;SP2];
 [isstego, score] = predict(model, TestData);
 
 T = toc;
-disp(['classifyT(', T, ')']);
+disp(['classifyTime(', T, ')']);
 
 % 简易判断隐写分析效果，不准确哒
 % disp(num2str(sum(isstego(:))));
@@ -90,7 +90,7 @@ for i = 1:isstego_length
 		if isstego(i) == -1
 			truePredict = truePredict + 1;
 		else
-			disp([num2str(isstego(i)), '  ', num2str(i)]);
+			% disp([num2str(isstego(i)), '  ', num2str(i)]);
 			FP = FP + 1;
 		end
 		% disp(['predict cover? ', num2str(isstego(i) == -1) ]);
@@ -103,5 +103,5 @@ for i = 1:isstego_length
 	end
 end
 
-disp(['Train Result:', 'sum(', num2str(isstego_length), '):',  num2str(truePredict), ' TP', '(', num2str(isstego_half), ':' , num2str(TP), ')  FP', '(', num2str(isstego_half), ':' ,num2str(FP), ')']);
+disp(['sum(', num2str(isstego_length), ':',  num2str(truePredict), '); TP', '(', num2str(isstego_half), ':' , num2str(TP), ');  FP', '(', num2str(isstego_half), ':' ,num2str(FP), ');']);
 end

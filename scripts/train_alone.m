@@ -1,6 +1,6 @@
 % 单独养成脚本
-function  feature_alone(conf, params)
-	disp('----------------- 养成开始 -------------------------');
+function  train_alone(conf, params)
+	% disp('----------------- 养成开始 -------------------------');
 	% 计数
 	TotalT = [];
 
@@ -15,9 +15,12 @@ function  feature_alone(conf, params)
 		FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, ~]  = confFunc();
 
 	% 用于外部调用，比如说其他程序调用
-	if ~isempty(params)
-		algorithms = params(1);
-		imageTypes = params(2);
+	% 约定一级分割符是 .
+	% 二级分割符是  ;
+	if and(~isempty(params), ischar(params))
+		params = strsplit(params, '.');
+		algorithms = strsplit(params(1), ';');
+		imageTypes = strsplit(params(2), ';');
 	end
 
 	[algorithms_length, ~] = size(algorithms) ;
@@ -47,11 +50,11 @@ function  feature_alone(conf, params)
 
 			T = toc;
 			TotalT = [TotalT; T];
-			fprintf('algorithm(%s), imageType(%s), bpp(%s), T(%.4f) \n', algorithm, imageType, num2str(bpp),T);
+			fprintf('algorithm(%s); imageType(%s); bpp(%s); trainTime(%.4f); \n', algorithm, imageType, num2str(bpp),T);
 		end
 	end
 end
 
-	disp(strcat('-----------------养成结束! -------------------------'));
-	disp('T(', [num2str(sum(TotalT(:))), ')']);
+	% disp(strcat('-----------------养成结束! -------------------------'));
+	% disp('totalTime(', [num2str(sum(TotalT(:))), ');']);
 end
