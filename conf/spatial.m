@@ -1,6 +1,6 @@
 function [type, imageTypes, imageSeriers, bpps, algorithms, BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, STEGO_PATH] = spatial()
 	% 基本路径
-		BASE_PATH = '/home/mona/Documents/stego_feature_train/';
+		BASE_PATH = '/home/mona/Documents/stegocop/detect/';
 
 	% 图像所在路径
 	IMAGES_PATH = fullfile(BASE_PATH , 'images');

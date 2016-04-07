@@ -40,7 +40,8 @@ do
 			mcc -m "./scripts/stego.m" -a "./lib/generatePicName.m" -a "./conf" -a "./stego/${algorithm}" -d "./dest"
 			;;
 		feature_extract_alone)
-			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -a "./algorithms/${algorithm}" -d "./dest"
+			echo "feature_extract_alone"
+			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -a "./algorithms/spatial/${algorithm}" -d "./dest"
 			;;
 		train_alone)
 			mcc -m "./scripts/train_alone.m" -a "./lib" -a "./scripts" -a "./conf"  -d "./dest"

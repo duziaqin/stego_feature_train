@@ -19,9 +19,9 @@ function  feature_extract_alone(conf, params)
 	% 二级分割符是  ;
 	if and(~isempty(params), ischar(params))
 		params = strsplit(params, '.');
-		algorithms = strsplit(params(1), ';');
-		imageTypes = strsplit(params(2), ';');
-		imageSeriers = str2num(params(3));
+		algorithms = strsplit(params{1}, ';')';
+		imageTypes = strsplit(params{2}, ';')';
+		imageSeriers = str2num(params{3});
 	end
 
 	if ~isdeployed
@@ -52,6 +52,7 @@ function  feature_extract_alone(conf, params)
 
 		for imageTypesIndex = 1:imageTypes_length
 			imageType = imageTypes{imageTypesIndex};
+			disp(imageType);
 			for bppIndex = 1:bpps_length
 			tic;
 			bpp = num2str(bpps(bppIndex));

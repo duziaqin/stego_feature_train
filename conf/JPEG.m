@@ -1,6 +1,6 @@
 function [type, imageTypes, imageSeriers, bpps, algorithms, BASE_PATH, IMAGES_PATH, ALGORITHMS_PATH, FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, STEGO_PATH] = JPEG()
 	% 基本路径
-	BASE_PATH = '/home/mona/Documents/stego_feature_train/';
+	BASE_PATH = '/home/mona/Documents/stegocop/detect/';
 
 	% 图像所在路径
 	IMAGES_PATH = fullfile(BASE_PATH , 'jpeg');
@@ -19,7 +19,7 @@ function [type, imageTypes, imageSeriers, bpps, algorithms, BASE_PATH, IMAGES_PA
 
 	% 隐写算法文件存储位置
 	STEGO_PATH = fullfile(BASE_PATH, 'stego');
-	
+
 	% 图片后缀
 	IMAGE_PREFIX = 'jpeg';
 

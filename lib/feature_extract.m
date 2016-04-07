@@ -15,10 +15,10 @@ function featureF = feature_extract(algorithm, PATH, imageSeriers, imageType, bp
 
 			try
 				featureVector = transform2Vector(algorithmFunc(imagePath));
+				featureF = [featureF; featureVector];
 			catch ME
-				disp(['errors(feature ', single, ' ', ME, ');errorBpp(', num2str(bpp), ');']);
+				disp(['errors(feature ', single, ');errorBpp(', num2str(bpp), ');']);
 			end
-			featureF = [featureF; featureVector];
 		end
 
 	function columnVector = transform2Vector(matrix)

@@ -19,8 +19,8 @@ function  train_alone(conf, params)
 	% 二级分割符是  ;
 	if and(~isempty(params), ischar(params))
 		params = strsplit(params, '.');
-		algorithms = strsplit(params(1), ';');
-		imageTypes = strsplit(params(2), ';');
+		algorithms = strsplit(params{1}, ';')';
+		imageTypes = strsplit(params{2}, ';')';
 	end
 
 	[algorithms_length, ~] = size(algorithms) ;
