@@ -30,17 +30,17 @@ function [type, imageTypes, imageSeriers, bpps, algorithms, BASE_PATH, IMAGES_PA
 	% imageTypes{3} = 'WOW';
 
 	imageTypes = cell(1,1);
-	imageTypes{1} = 'WOW';
+	imageTypes{1} = 'HUGO';
 
 	%每一类(一个嵌入率)起始和终止数
 	imageSeriers = [1; 30];
 
 	% 嵌入率
-	% bpps = [0.2; 0.3; 0.4; 0.5];
-	bpps = [0.5];
+	bpps = [0.2; 0.3; 0.4; 0.5];
+	% bpps = [0.2; 0.5];
 
 	% 算法列表
 	algorithms = cell(1,1);
 	% algorithms{1} = 'SPAM';
-	algorithms{1} = 'WAM';
+	algorithms{1} = 'SPAM';
 end

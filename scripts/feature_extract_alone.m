@@ -15,15 +15,16 @@ function  feature_extract_alone(conf, params)
 
 	% 优先考虑命令行启动
 	% 用于外部调用，比如说其他程序调用
-	% 约定一级分割符是 .
+	% 约定一级分割符是 &
 	% 二级分割符是  ;
 	if and(~isempty(params), ischar(params))
-		params = strsplit(params, '.');
+		params = strsplit(params, '&');
 		algorithms = strsplit(params{1}, ';')';
 		imageTypes = strsplit(params{2}, ';')';
 		imageSeriers = str2num(params{3});
+		bpps = str2num(params{4});
 	end
-
+	disp(['bpps ', params{4}]);
 	if ~isdeployed
 		addpath(genpath(ALGORITHMS_PATH));
 	end
@@ -52,7 +53,7 @@ function  feature_extract_alone(conf, params)
 
 		for imageTypesIndex = 1:imageTypes_length
 			imageType = imageTypes{imageTypesIndex};
-			disp(imageType);
+
 			for bppIndex = 1:bpps_length
 			tic;
 			bpp = num2str(bpps(bppIndex));

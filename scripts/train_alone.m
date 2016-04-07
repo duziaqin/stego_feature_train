@@ -15,10 +15,10 @@ function  train_alone(conf, params)
 		FEATURES_PATH, MODEL_PATH,	IMAGE_PREFIX, ~]  = confFunc();
 
 	% 用于外部调用，比如说其他程序调用
-	% 约定一级分割符是 .
+	% 约定一级分割符是 &
 	% 二级分割符是  ;
 	if and(~isempty(params), ischar(params))
-		params = strsplit(params, '.');
+		params = strsplit(params, '&');
 		algorithms = strsplit(params{1}, ';')';
 		imageTypes = strsplit(params{2}, ';')';
 	end
@@ -41,7 +41,6 @@ function  train_alone(conf, params)
 			bpp = num2str(bpps(bppIndex));
 			% 提取stego feature
 			load(fullfile(FEATURES_PATH, 'stego', type, [algorithm, '_stego_',  imageType, '_' , num2str(bpp), '_feature.mat' ]), 'stegoF');
-
 			% svm训练
 			[model, score, medv, disv] = train(coverF, stegoF);
 
@@ -50,7 +49,7 @@ function  train_alone(conf, params)
 
 			T = toc;
 			TotalT = [TotalT; T];
-			fprintf('algorithm(%s); imageType(%s); bpp(%s); trainTime(%.4f); \n', algorithm, imageType, num2str(bpp),T);
+			disp(['algorithm(', algorithm, '); imageType(', imageType,'); bpp(', num2str(bpp), ');']);
 		end
 	end
 end

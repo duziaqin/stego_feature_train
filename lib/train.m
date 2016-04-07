@@ -65,14 +65,14 @@ TrainData=[AU1;SP1];
 model = fitcsvm(TrainData, TrainLabel);
 
 T = toc;
-disp(['trainTime(', T, ')']);
+disp(['trainTime(', num2str(T), ');']);
 
 tic;
 TestData=[AU2;SP2];
 [isstego, score] = predict(model, TestData);
 
 T = toc;
-disp(['classifyTime(', T, ')']);
+disp(['classifyTime(', num2str(T), ');']);
 
 % 简易判断隐写分析效果，不准确哒
 % disp(num2str(sum(isstego(:))));
@@ -103,5 +103,5 @@ for i = 1:isstego_length
 	end
 end
 
-disp(['sum(', num2str(isstego_length), ':',  num2str(truePredict), '); TP', '(', num2str(isstego_half), ':' , num2str(TP), ');  FP', '(', num2str(isstego_half), ':' ,num2str(FP), ');']);
+disp(['perSum(', num2str(isstego_half), '); TP', '(', num2str(TP), ');  FP', '(', num2str(FP), ');']);
 end

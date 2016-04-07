@@ -17,7 +17,13 @@ function featureF = feature_extract(algorithm, PATH, imageSeriers, imageType, bp
 				featureVector = transform2Vector(algorithmFunc(imagePath));
 				featureF = [featureF; featureVector];
 			catch ME
-				disp(['errors(feature ', single, ');errorBpp(', num2str(bpp), ');']);
+				try
+					image = imread(imagePath)
+					featureVector = transform2Vector(algorithmFunc(image));
+					featureF = [featureF; featureVector];
+				catch ME
+					disp(['errors(feature ', single, ');errorBpp(', num2str(bpp), ');']);
+				end
 			end
 		end
 
