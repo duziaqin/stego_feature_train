@@ -44,7 +44,7 @@ do
 			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -a "./algorithms/spatial/${algorithm}" -d "./dest"
 			;;
 		train_alone)
-			mcc -m "./scripts/train_alone.m" -a "./lib" -a "./scripts" -a "./conf"  -d "./dest"
+			mcc -m "./scripts/train_alone.m" -a "./lib"  -a "./scripts" -a "./conf"  -d "./dest"
 		;;
 		esac
 done
