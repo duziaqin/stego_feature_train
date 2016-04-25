@@ -34,17 +34,17 @@ for file in ${targetFile[@]}
 do
 	case $file in
 		index)
-			mcc -m "./index.m" -a "./scripts" -a "./conf" -d "./dest"
+			mcc -m "./index.m" -a "./scripts" -a "./conf" -d "./algorithms/spatial/${algorithm}"
 			;;
 		stego)
-			mcc -m "./scripts/stego.m" -a "./lib/generatePicName.m" -a "./conf" -a "./stego/${algorithm}" -d "./dest"
+			mcc -m "./scripts/stego.m" -a "./lib/generatePicName.m" -a "./conf" -d "./stego/${algorithm}"
 			;;
 		feature_extract_alone)
 			echo "feature_extract_alone"
-			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -a "./algorithms/spatial/${algorithm}" -d "./dest"
+			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -d "./algorithms/spatial/${algorithm}"
 			;;
 		train_alone)
-			mcc -m "./scripts/train_alone.m" -a "./lib"  -a "./scripts" -a "./conf"  -d "./dest"
+			mcc -m "./scripts/train_alone.m" -a "./lib"  -a "./scripts" -a "./conf"  -d "./algorithms/spatial/${algorithm}"
 		;;
 		esac
 done
