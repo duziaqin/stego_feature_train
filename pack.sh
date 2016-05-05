@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 打包index.m和scripts里的独立脚本到dest里，供其他程序调用
 while getopts "a:s:h" arg
 do
@@ -34,14 +34,14 @@ for file in ${targetFile[@]}
 do
 	case $file in
 		index)
-			mcc -m "./index.m" -a "./scripts" -a "./conf" -d "./algorithms/spatial/${algorithm}"
+			mcc -m "./index.m" -a "./scripts" -a "./conf" -a "./stego/${algorithm}" -d "./algorithms/spatial/${algorithm}"
 			;;
 		stego)
-			mcc -m "./scripts/stego.m" -a "./lib/generatePicName.m" -a "./conf" -d "./stego/${algorithm}"
+			mcc -m "./scripts/stego.m" -a "./lib/generatePicName.m" -a "./conf" -a "./stego/${algorithm}" -d "./stego/${algorithm}"
 			;;
 		feature_extract_alone)
-			echo "feature_extract_alone"
-			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -d "./algorithms/spatial/${algorithm}"
+			destPATH="./algorithms/spatial/${algorithm}"
+			mcc -m "./scripts/feature_extract_alone.m" -a "./lib" -a "./scripts" -a "./conf" -a "${destPATH}" -d "${destPATH}"
 			;;
 		train_alone)
 			mcc -m "./scripts/train_alone.m" -a "./lib"  -a "./scripts" -a "./conf"  -d "./algorithms/spatial/${algorithm}"

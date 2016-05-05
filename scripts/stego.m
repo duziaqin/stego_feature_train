@@ -1,6 +1,15 @@
 function stego(algorithm, conf, params)
 	tic;
-
+	
+	% 优先考虑命令行启动
+	% 用于外部调用，比如说其他程序调用
+	% 约定一级分割符是 &
+	% 二级分割符是  ;
+	if and(~isempty(params), ischar(params))
+		params = strsplit(params, '&');
+		imageSeriers = str2num(params{1});
+	end
+	
 	if ~isdeployed
 		mfilepath=fileparts(which(mfilename));
 		addpath(fullfile(mfilepath, '../lib'));
@@ -11,13 +20,6 @@ function stego(algorithm, conf, params)
 	[ ~, ~, imageSeriers, bpps, ~, ~, ...
 		IMAGES_PATH, ~, ~, ~,	IMAGE_PREFIX, STEGO_PATH]  = confFunc();
 
-		% 优先考虑命令行启动
-		% 用于外部调用，比如说其他程序调用
-		if and(~isempty(params), ischar(params))
-			params = str2num(params);
-			imageSeriers = params(1);
-		end
-
 	if ~isdeployed
 		addpath(genpath(STEGO_PATH));
 	end
@@ -26,11 +28,10 @@ function stego(algorithm, conf, params)
 
 	startPoint = imageSeriers(1);
 	endPoint = imageSeriers(2);
-
+	
 	coverPath = fullfile(IMAGES_PATH, 'cover');
 	savePath = fullfile(IMAGES_PATH, 'stego', algorithm);
-	params.p = -1;
-
+	
 	if ~exist(savePath, 'dir')
 		mkdir(savePath);
 	end
@@ -50,7 +51,7 @@ function stego(algorithm, conf, params)
 			saveFile = fullfile(saveBppPath, fileName);
 
 			try
-				image = stegoFunc(coverFile, single(str2num(bpp)), params)
+				image = stegoFunc(coverFile, single(str2num(bpp)))
 			catch ME
 				disp(['error(stego ',  fileName,  ' ', ME, ');']);
 			end
